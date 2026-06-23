@@ -1,0 +1,23 @@
+.round {
+	width: 8px;
+	height: 8px;
+
+	background-color: rgb(227, 201, 137);
+	border-radius: 50%;
+
+	margin-top: 4px;
+	flex-shrink: 0;
+}
+.todo__item {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+
+	font-size: 17px;
+	color: rgb(124, 85, 23);
+}
+.line {
+	border: 1px solid rgb(227, 201, 137);
+	width: 400px;
+	margin: 8px 0;
+}

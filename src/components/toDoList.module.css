@@ -1,0 +1,9 @@
+.todo__list {
+	width: 450px;
+	min-height: 240px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 10px 15px;
+}

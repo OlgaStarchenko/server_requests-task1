@@ -1,0 +1,71 @@
+body {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+.container {
+	width: 500px;
+	min-height: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	background-image: url('../public/fon.avif');
+	border: 1px solid rgb(225, 218, 195);
+}
+.title {
+	font-size: 30px;
+	font-weight: bold;
+	color: rgb(124, 85, 23);
+
+	margin: 25px;
+}
+.todo__list {
+	width: 450px;
+	min-height: 240px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 10px 15px;
+}
+.round {
+	width: 8px;
+	height: 8px;
+
+	background-color: rgb(227, 201, 137);
+	border-radius: 50%;
+
+	margin-top: 4px;
+	flex-shrink: 0;
+}
+.todo__item {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+
+	font-size: 17px;
+	color: rgb(124, 85, 23);
+}
+.line {
+	border: 1px solid rgb(227, 201, 137);
+	width: 400px;
+	margin: 8px 0;
+}
+.btn__add {
+	color: white;
+	font-size: 40px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 45px;
+	height: 45px;
+
+	border-radius: 50%;
+	margin: 15px;
+}
+.btn__container {
+	width: 400px;
+	display: flex;
+	justify-content: right;
+}

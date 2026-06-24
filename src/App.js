@@ -9,6 +9,7 @@ export function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
 	const [itemText, setItemText] = useState('');
+	const [refreshToDosFlag, setRefreshToDosFlag] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -19,7 +20,7 @@ export function App() {
 				setToDoList(loadedToDos);
 			})
 			.finally(() => setIsLoading(false));
-	}, []);
+	}, [refreshToDosFlag]);
 
 	const openAddItemModal = () => {
 		setIsAdding(true);
@@ -40,10 +41,14 @@ export function App() {
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((newItem) => {
-				setToDoList((prev) => [...prev, newItem]);
+				refreshToDos();
 				setIsAdding(false);
 				setItemText('');
 			});
+	};
+
+	const refreshToDos = () => {
+		setRefreshToDosFlag(!refreshToDosFlag);
 	};
 
 	return (

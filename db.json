@@ -15,6 +15,14 @@
     {
       "title": "Отдать ботинки в ремонт",
       "id": "SJAC9IVbu5M"
+    },
+    {
+      "title": "       Позвонить учителю ",
+      "id": "qdXM0k_Wf2o"
+    },
+    {
+      "title": "Помыть окно",
+      "id": "3tsvyY3TNs4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

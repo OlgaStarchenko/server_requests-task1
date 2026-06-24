@@ -12,7 +12,12 @@ export function Modal({ closeAddItemModal, requestAddToDoItem, itemText, setItem
 				onChange={({ target }) => setItemText(target.value)}
 			/>
 			<div className={styles.btn__container}>
-				<Button text={'Add'} variant="btn__add" onClick={requestAddToDoItem} />
+				<Button
+					text={'Add'}
+					variant="btn__add"
+					onClick={requestAddToDoItem}
+					disabled={itemText === ''}
+				/>
 				<Button
 					text={'Cancel'}
 					variant="btn__cancel"

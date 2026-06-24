@@ -27,6 +27,7 @@ export function App() {
 
 	const closeAddItemModal = () => {
 		setIsAdding(false);
+		setItemText('');
 	};
 
 	const requestAddToDoItem = () => {

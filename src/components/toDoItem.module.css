@@ -11,6 +11,7 @@
 .todo__item {
 	display: flex;
 	align-items: flex-start;
+	justify-content: space-between;
 	gap: 10px;
 
 	font-size: 17px;
@@ -19,5 +20,16 @@
 .line {
 	border: 1px solid rgb(227, 201, 137);
 	width: 400px;
-	margin: 8px 0;
+	margin: 6px 0;
+}
+.content {
+	flex: 1;
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.right {
+	display: flex;
 }

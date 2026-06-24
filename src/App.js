@@ -2,15 +2,17 @@ import styles from './App.module.css';
 import { ToDoList } from './components/ToDoList';
 import { Button } from './components/Button';
 import { useEffect, useState } from 'react';
+import { Modal } from './components/Modal';
 
 export function App() {
 	const [toDoList, setToDoList] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isAdding, setIsAdding] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
 
-		fetch('https://jsonplaceholder.typicode.com/todos')
+		fetch('http://localhost:3004/toDos')
 			.then((loadedData) => loadedData.json())
 			.then((loadedToDos) => {
 				setToDoList(loadedToDos);
@@ -18,13 +20,30 @@ export function App() {
 			.finally(() => setIsLoading(false));
 	}, []);
 
+	const openAddItemModal = () => {
+		setIsAdding(true);
+		console.log(isAdding);
+	};
+
+	const closeAddItemModal = () => {
+		setIsAdding(false);
+		console.log(isAdding);
+	};
+
+	const addItem = () => {};
+
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>
 			<ToDoList toDoList={toDoList} isLoading={isLoading} />
 			<div className={styles.btn__container}>
-				<Button />
+				<Button
+					text={'+'}
+					onClick={openAddItemModal}
+					variant="btn__open_add_modal"
+				/>
 			</div>
+			{isAdding && <Modal closeAddItemModal={closeAddItemModal} />}
 		</div>
 	);
 }

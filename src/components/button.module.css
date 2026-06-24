@@ -1,4 +1,4 @@
-.btn__add {
+.btn__open_add_modal {
 	color: white;
 	font-size: 40px;
 	font-weight: bold;
@@ -9,4 +9,52 @@
 
 	border-radius: 50%;
 	margin: 15px;
+}
+.btn__add {
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 100px;
+	height: 35px;
+
+	border-radius: 10px;
+	margin: 15px;
+}
+.btn__cancel {
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 100px;
+	height: 35px;
+
+	border-radius: 10px;
+	margin: 15px;
+}
+.btn__edit {
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 45px;
+	height: 20px;
+
+	border-radius: 5px;
+	margin: 5px;
+}
+.btn__delete {
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 45px;
+	height: 20px;
+
+	border-radius: 5px;
+	margin: 5px;
 }

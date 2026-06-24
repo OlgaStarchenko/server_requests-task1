@@ -1,0 +1,29 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	bottom: 50%;
+
+	width: 400px;
+	height: 150px;
+	background-color: white;
+	border: 1px solid rgb(225, 218, 195);
+}
+.btn__container {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 20px;
+}
+.input__add {
+	width: 350px;
+	margin-top: 30px;
+	padding: 5px;
+
+	border: 1px solid rgb(225, 218, 195);
+	color: rgb(124, 85, 23);
+}
+.input__add::placeholder {
+	color: rgb(225, 218, 195);
+}

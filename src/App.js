@@ -8,6 +8,7 @@ export function App() {
 	const [toDoList, setToDoList] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
+	const [itemText, setItemText] = useState('');
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -18,19 +19,29 @@ export function App() {
 				setToDoList(loadedToDos);
 			})
 			.finally(() => setIsLoading(false));
-	}, []);
+	}, [itemText]);
 
 	const openAddItemModal = () => {
 		setIsAdding(true);
-		console.log(isAdding);
 	};
 
 	const closeAddItemModal = () => {
 		setIsAdding(false);
-		console.log(isAdding);
 	};
 
-	const addItem = () => {};
+	const requestAddToDoItem = () => {
+		fetch('http://localhost:3004/toDos', {
+			method: 'POST',
+			heder: { 'Content-Type': 'application/json;charset=utf-8' },
+			body: JSON.stringify({
+				title: itemText,
+			}),
+		})
+			.then((rawResponse) => rawResponse.json())
+			.then((response) => console.log(response));
+		setIsAdding(false);
+		setItemText('');
+	};
 
 	return (
 		<div className={styles.container}>
@@ -43,7 +54,14 @@ export function App() {
 					variant="btn__open_add_modal"
 				/>
 			</div>
-			{isAdding && <Modal closeAddItemModal={closeAddItemModal} />}
+			{isAdding && (
+				<Modal
+					closeAddItemModal={closeAddItemModal}
+					requestAddToDoItem={requestAddToDoItem}
+					itemText={itemText}
+					setItemText={setItemText}
+				/>
+			)}
 		</div>
 	);
 }

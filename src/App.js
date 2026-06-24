@@ -19,7 +19,7 @@ export function App() {
 				setToDoList(loadedToDos);
 			})
 			.finally(() => setIsLoading(false));
-	}, [itemText]);
+	}, []);
 
 	const openAddItemModal = () => {
 		setIsAdding(true);
@@ -33,15 +33,17 @@ export function App() {
 	const requestAddToDoItem = () => {
 		fetch('http://localhost:3004/toDos', {
 			method: 'POST',
-			heder: { 'Content-Type': 'application/json;charset=utf-8' },
+			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
 				title: itemText,
 			}),
 		})
 			.then((rawResponse) => rawResponse.json())
-			.then((response) => console.log(response));
-		setIsAdding(false);
-		setItemText('');
+			.then((newItem) => {
+				setToDoList((prev) => [...prev, newItem]);
+				setIsAdding(false);
+				setItemText('');
+			});
 	};
 
 	return (

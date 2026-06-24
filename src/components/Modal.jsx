@@ -16,7 +16,7 @@ export function Modal({ closeAddItemModal, requestAddToDoItem, itemText, setItem
 					text={'Add'}
 					variant="btn__add"
 					onClick={requestAddToDoItem}
-					disabled={itemText === ''}
+					disabled={itemText.trim() === ''}
 				/>
 				<Button
 					text={'Cancel'}

@@ -10,6 +10,7 @@ export function App() {
 	const [isAdding, setIsAdding] = useState(false);
 	const [itemText, setItemText] = useState('');
 	const [refreshToDosFlag, setRefreshToDosFlag] = useState(false);
+	const [hasInput, setHasInput] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -64,10 +65,14 @@ export function App() {
 			</div>
 			{isAdding && (
 				<Modal
-					closeAddItemModal={closeAddItemModal}
-					requestAddToDoItem={requestAddToDoItem}
+					acceptButtonText={'Add'}
+					cancelButtonText={'Cancel'}
+					cancelButtonOnClick={closeAddItemModal}
+					acceptButtonOnClick={requestAddToDoItem}
 					itemText={itemText}
 					setItemText={setItemText}
+					hasInput={hasInput}
+					disabledAcceptButton={itemText.trim() === ''}
 				/>
 			)}
 		</div>

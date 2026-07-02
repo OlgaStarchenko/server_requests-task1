@@ -143,6 +143,8 @@ export function App() {
 					hasInput={hasInput}
 					disabledAcceptButton={itemText.trim() === ''}
 					placeholder={'Enter a new task...'}
+					isAdding={isAdding}
+					isUpdating={isUpdating}
 				/>
 			)}
 			{isUpdating && (
@@ -155,6 +157,8 @@ export function App() {
 					setItemText={setItemText}
 					hasInput={hasInput}
 					disabledAcceptButton={itemText.trim() === ''}
+					isAdding={isAdding}
+					isUpdating={isUpdating}
 				/>
 			)}
 			{isDeleting && (

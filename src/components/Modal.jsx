@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './modal.module.css';
 import { Button } from './Button';
 
@@ -14,7 +14,17 @@ export function Modal({
 	setItemText,
 	hasInput,
 	placeholder,
+	isAdding,
+	isUpdating,
 }) {
+	const inputRef = useRef(null);
+
+	useEffect(() => {
+		if (isAdding || isUpdating) {
+			inputRef.current.focus();
+		}
+	}, [isAdding, isUpdating]);
+
 	return (
 		<div className={styles.container}>
 			{hasInput ? (
@@ -23,6 +33,7 @@ export function Modal({
 					placeholder={placeholder}
 					value={itemText}
 					onChange={({ target }) => setItemText(target.value)}
+					ref={inputRef}
 				/>
 			) : (
 				<h2 className={styles.textH2}>{questionText}</h2>

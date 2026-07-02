@@ -25,6 +25,23 @@ export function Modal({
 		}
 	}, [isAdding, isUpdating]);
 
+	useEffect(() => {
+		const handleKeyDown = (event) => {
+			console.log(event.key);
+			if (event.key === 'Enter' && !disabledAcceptButton) {
+				acceptButtonOnClick();
+			} else if (event.key === 'Escape') {
+				cancelButtonOnClick();
+			}
+		};
+
+		document.addEventListener('keydown', handleKeyDown);
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+		};
+	});
+
 	return (
 		<div className={styles.container}>
 			{hasInput ? (

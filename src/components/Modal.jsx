@@ -38,6 +38,7 @@ export function Modal({
 					text={cancelButtonText}
 					variant="btn__cancel"
 					onClick={cancelButtonOnClick}
+					questionText={'Do you really want to delete the task?'}
 				/>
 			</div>
 		</div>

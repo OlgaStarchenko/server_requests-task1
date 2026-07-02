@@ -1,45 +1,4 @@
 {
-  "toDos": [
-    {
-      "id": "1",
-      "title": "Вынест"
-    },
-    {
-      "id": "2",
-      "title": " футбола"
-    },
-    {
-      "title": "                                Сделать ремонт ",
-      "id": "J6IaBV7cjfo"
-    },
-    {
-      "title": "bxfvbdbdzsv",
-      "id": "BURUv-vTCoQ"
-    },
-    {
-      "title": "vbfd",
-      "id": "5M4tJZRLuiI"
-    },
-    {
-      "title": "ghjnrth",
-      "id": "3CkQlqtC6Zw"
-    },
-    {
-      "title": "gndg",
-      "id": "K6NmV4TT_Hc"
-    },
-    {
-      "title": "525",
-      "id": "LFU0_uzYGcg"
-    },
-    {
-      "title": " m cvbxc cx",
-      "id": "Vl1k2pBf2a8"
-    },
-    {
-      "title": "jhg",
-      "id": "guVWy5YnOCw"
-    }
-  ],
+  "toDos": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

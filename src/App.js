@@ -9,10 +9,12 @@ export function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
 	const [itemText, setItemText] = useState('');
 	const [refreshToDosFlag, setRefreshToDosFlag] = useState(false);
 	const [hasInput, setHasInput] = useState(false);
 	const [idTask, setIdTask] = useState('');
+	const [titleTask, setTitleTask] = useState('');
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -62,6 +64,19 @@ export function App() {
 			});
 	};
 
+	const requestDeleteToDoItem = (id) => {
+		fetch(`http://localhost:3004/toDos/${idTask}`, {
+			method: 'DELETE',
+		})
+			.then((rawResponse) => {
+				rawResponse.json();
+			})
+			.then((deleteItem) => {
+				refreshToDos();
+			})
+			.finally(() => closeDeleteItemModal());
+	};
+
 	const refreshToDos = () => {
 		setRefreshToDosFlag(!refreshToDosFlag);
 	};
@@ -88,7 +103,18 @@ export function App() {
 		setItemText('');
 		setHasInput(false);
 	};
-	console.log(toDoList);
+
+	const openDeleteItemModal = (id, title) => {
+		setTitleTask(title);
+		setIsDeleting(true);
+		setHasInput(false);
+		setIdTask(id);
+	};
+
+	const closeDeleteItemModal = () => {
+		setIsDeleting(false);
+		setHasInput(true);
+	};
 
 	return (
 		<div className={styles.container}>
@@ -97,6 +123,7 @@ export function App() {
 				toDoList={toDoList}
 				isLoading={isLoading}
 				openUpdateItemModal={openUpdateItemModal}
+				openDeleteItemModal={openDeleteItemModal}
 			/>
 			<div className={styles.btn__container}>
 				<Button
@@ -129,6 +156,17 @@ export function App() {
 					hasInput={hasInput}
 					disabledAcceptButton={itemText.trim() === ''}
 				/>
+			)}
+			{isDeleting && (
+				<Modal
+					acceptButtonText={'Delete'}
+					cancelButtonText={'Cancel'}
+					cancelButtonOnClick={closeDeleteItemModal}
+					acceptButtonOnClick={requestDeleteToDoItem}
+					hasInput={hasInput}
+					titleTask={titleTask}
+					questionText={`Do you really want to delete the task "${titleTask}"?`}
+				></Modal>
 			)}
 		</div>
 	);

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './toDoItem.module.css';
 import { Button } from './Button';
 
-export function ToDoItem({ title, openUpdateItemModal, id }) {
+export function ToDoItem({ title, openUpdateItemModal, id, openDeleteItemModal }) {
 	return (
 		<li className={styles.todo__item}>
 			<div className={styles.round}></div>
@@ -17,7 +17,13 @@ export function ToDoItem({ title, openUpdateItemModal, id }) {
 							variant="btn__edit"
 							onClick={() => openUpdateItemModal(id, title)}
 						/>
-						<Button text="Delete" variant="btn__delete" />
+						<Button
+							text="Delete"
+							variant="btn__delete"
+							onClick={() => {
+								openDeleteItemModal(id, title);
+							}}
+						/>
 					</div>
 				</div>
 

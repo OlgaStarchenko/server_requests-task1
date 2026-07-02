@@ -2,14 +2,21 @@ import React from 'react';
 import styles from './toDoList.module.css';
 import { ToDoItem } from './ToDoItem';
 
-export function ToDoList({ toDoList, isLoading }) {
+export function ToDoList({ toDoList, isLoading, openUpdateItemModal }) {
 	return (
 		<div className={styles.todo__list}>
 			<ul>
 				{isLoading ? (
 					<div className={styles.loader}></div>
 				) : (
-					toDoList.map((item) => <ToDoItem key={item.id} title={item.title} />)
+					toDoList.map((item, id) => (
+						<ToDoItem
+							id={item.id}
+							key={item.id}
+							title={item.title}
+							openUpdateItemModal={openUpdateItemModal}
+						/>
+					))
 				)}
 			</ul>
 		</div>

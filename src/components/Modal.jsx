@@ -13,13 +13,14 @@ export function Modal({
 	itemText,
 	setItemText,
 	hasInput,
+	placeholder,
 }) {
 	return (
 		<div className={styles.container}>
 			{hasInput ? (
 				<input
 					className={styles.input__add}
-					placeholder="Enter a new task..."
+					placeholder={placeholder}
 					value={itemText}
 					onChange={({ target }) => setItemText(target.value)}
 				/>

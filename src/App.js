@@ -3,9 +3,12 @@ import { ToDoList } from './components/ToDoList';
 import { Button } from './components/Button';
 import { useEffect, useState } from 'react';
 import { Modal } from './components/Modal';
+import { Input } from './components/Input';
+import { ImSearch } from 'react-icons/im';
 
 export function App() {
 	const [toDoList, setToDoList] = useState([]);
+	const [originalToDoList, setOriginalToDoList] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
@@ -15,6 +18,9 @@ export function App() {
 	const [hasInput, setHasInput] = useState(false);
 	const [idTask, setIdTask] = useState('');
 	const [titleTask, setTitleTask] = useState('');
+	const [isSearching, setIsSearching] = useState(false);
+	const [searchText, setSearchText] = useState('');
+	const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -23,6 +29,7 @@ export function App() {
 			.then((loadedData) => loadedData.json())
 			.then((loadedToDos) => {
 				setToDoList(loadedToDos);
+				setOriginalToDoList(loadedToDos);
 			})
 			.finally(() => setIsLoading(false));
 	}, [refreshToDosFlag]);
@@ -113,19 +120,48 @@ export function App() {
 
 	const closeDeleteItemModal = () => {
 		setIsDeleting(false);
-		setHasInput(true);
+		setHasInput(false);
+	};
+
+	const toggleIsSorted = () => {
+		setIsSortedAlphabetically((prev) => !prev);
+		sortTasksAlphabetically();
+	};
+
+	const sortTasksAlphabetically = () => {
+		if (!isSortedAlphabetically) {
+			const toDoListSortAlphabetically = [...toDoList].sort((a, b) =>
+				a.title.localeCompare(b.title),
+			);
+			setToDoList(toDoListSortAlphabetically);
+		} else {
+			setToDoList(originalToDoList);
+		}
 	};
 
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>
+			<div className={styles.input__search__container}>
+				<Input variant="input__search" placeholder="Search..." />
+				<Button variant="btn__search">
+					<ImSearch color="white" size={'15'} />
+				</Button>
+				<Button
+					text={'Sort A → Z'}
+					onClick={toggleIsSorted}
+					variant={isSortedAlphabetically ? 'btn__sort__active' : 'btn__sort'}
+				/>
+			</div>
+
 			<ToDoList
 				toDoList={toDoList}
 				isLoading={isLoading}
 				openUpdateItemModal={openUpdateItemModal}
 				openDeleteItemModal={openDeleteItemModal}
 			/>
-			<div className={styles.btn__container}>
+
+			<div className={styles.btn__add__container}>
 				<Button
 					text={'+'}
 					onClick={openAddItemModal}

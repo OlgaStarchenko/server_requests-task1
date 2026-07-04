@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './modal.module.css';
 import { Button } from './Button';
+import { Input } from './Input';
 
 export function Modal({
 	acceptButtonText,
@@ -21,7 +22,7 @@ export function Modal({
 
 	useEffect(() => {
 		if (isAdding || isUpdating) {
-			inputRef.current.focus();
+			inputRef.current?.focus();
 		}
 	}, [isAdding, isUpdating]);
 
@@ -40,17 +41,18 @@ export function Modal({
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 		};
-	});
+	}, [disabledAcceptButton, acceptButtonOnClick, cancelButtonOnClick]);
 
 	return (
 		<div className={styles.container}>
 			{hasInput ? (
-				<input
+				<Input
+					variant="input__add"
+					ref={inputRef}
 					className={styles.input__add}
 					placeholder={placeholder}
 					value={itemText}
 					onChange={({ target }) => setItemText(target.value)}
-					ref={inputRef}
 				/>
 			) : (
 				<h2 className={styles.textH2}>{questionText}</h2>

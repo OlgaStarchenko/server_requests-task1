@@ -20,8 +20,12 @@ body {
 
 	margin: 25px;
 }
-.btn__container {
+.btn__add__container {
 	width: 400px;
 	display: flex;
 	justify-content: right;
+}
+.input__search__container {
+	display: flex;
+	align-items: center;
 }

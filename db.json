@@ -1,8 +1,20 @@
 {
   "toDos": [
     {
-      "title": "hfbafjb",
-      "id": "AM_o6z38TnA"
+      "title": "Яблоко5",
+      "id": "G-gjjyzfRkU"
+    },
+    {
+      "title": "Морковь",
+      "id": "m1OPMVM60sk"
+    },
+    {
+      "title": "Банан",
+      "id": "2bj_-AF95DQ"
+    },
+    {
+      "title": "Киви",
+      "id": "4n1Ju7ZJE7Y"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

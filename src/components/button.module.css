@@ -10,6 +10,9 @@
 	border-radius: 50%;
 	margin: 15px;
 }
+.btn__open_add_modal:hover {
+	background-color: rgb(124, 85, 23);
+}
 .btn__add {
 	color: white;
 	font-size: 25px;
@@ -25,6 +28,9 @@
 .btn__add:disabled {
 	background-color: rgb(164, 160, 160);
 }
+.btn__add:hover {
+	background-color: rgb(124, 85, 23);
+}
 .btn__cancel {
 	color: white;
 	font-size: 25px;
@@ -36,6 +42,9 @@
 
 	border-radius: 10px;
 	margin: 15px;
+}
+.btn__cancel:hover {
+	background-color: rgb(124, 85, 23);
 }
 .btn__edit {
 	color: white;
@@ -49,6 +58,9 @@
 	border-radius: 5px;
 	margin: 5px;
 }
+.btn__edit:hover {
+	background-color: rgb(124, 85, 23);
+}
 .btn__delete {
 	color: white;
 	font-size: 13px;
@@ -57,6 +69,51 @@
 
 	width: 45px;
 	height: 20px;
+
+	border-radius: 5px;
+	margin: 5px;
+}
+.btn__delete:hover {
+	background-color: rgb(124, 85, 23);
+}
+.btn__search {
+	font-size: 13px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 28px;
+	height: 26px;
+
+	border-radius: 5px;
+	margin: 5px;
+	padding-top: 2px;
+}
+.btn__search:hover {
+	background-color: rgb(124, 85, 23);
+}
+.btn__sort {
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 70px;
+	height: 26px;
+
+	border-radius: 5px;
+	margin: 5px;
+}
+.btn__sort:hover {
+	background-color: rgb(124, 85, 23);
+}
+.btn__sort__active {
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: rgb(124, 85, 23);
+
+	width: 70px;
+	height: 26px;
 
 	border-radius: 5px;
 	margin: 5px;

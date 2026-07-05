@@ -33,7 +33,16 @@ export function App() {
 	}, [refreshToDosFlag]);
 
 	useEffect(() => {
-		updateViewToDoList();
+		let updateToDoList = [...originalToDoList];
+		if (searchText.trim() !== '') {
+			updateToDoList = updateToDoList.filter((itemTask) =>
+				itemTask.title.toLowerCase().includes(searchText.trim().toLowerCase()),
+			);
+		}
+		if (isSortedAlphabetically) {
+			updateToDoList.sort((a, b) => a.title.localeCompare(b.title));
+		}
+		setViewToDoList(updateToDoList);
 	}, [originalToDoList, searchText, isSortedAlphabetically]);
 
 	const requestAddToDoItem = () => {
@@ -123,19 +132,6 @@ export function App() {
 	const closeDeleteItemModal = () => {
 		setIsDeleting(false);
 		setHasInput(false);
-	};
-
-	const updateViewToDoList = () => {
-		let updateToDoList = [...originalToDoList];
-		if (searchText.trim() !== '') {
-			updateToDoList = updateToDoList.filter((itemTask) =>
-				itemTask.title.toLowerCase().includes(searchText.trim().toLowerCase()),
-			);
-		}
-		if (isSortedAlphabetically) {
-			updateToDoList.sort((a, b) => a.title.localeCompare(b.title));
-		}
-		setViewToDoList(updateToDoList);
 	};
 
 	const toggleIsSorted = () => {

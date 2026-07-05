@@ -1,20 +1,16 @@
 {
   "toDos": [
     {
-      "title": "Яблоко5",
-      "id": "G-gjjyzfRkU"
-    },
-    {
-      "title": "Морковь",
+      "title": "Яблоко",
       "id": "m1OPMVM60sk"
     },
     {
-      "title": "Банан",
+      "title": "мяч",
       "id": "2bj_-AF95DQ"
     },
     {
-      "title": "Киви",
-      "id": "4n1Ju7ZJE7Y"
+      "title": "лот",
+      "id": "oFKeGJL-24g"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

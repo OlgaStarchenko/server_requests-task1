@@ -4,11 +4,10 @@ import { Button } from './components/Button';
 import { useEffect, useState } from 'react';
 import { Modal } from './components/Modal';
 import { Input } from './components/Input';
-import { ImSearch } from 'react-icons/im';
 
 export function App() {
-	const [toDoList, setToDoList] = useState([]);
-	const [originalToDoList, setOriginalToDoList] = useState('');
+	const [originalToDoList, setOriginalToDoList] = useState([]);
+	const [viewToDoList, setViewToDoList] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
@@ -18,7 +17,6 @@ export function App() {
 	const [hasInput, setHasInput] = useState(false);
 	const [idTask, setIdTask] = useState('');
 	const [titleTask, setTitleTask] = useState('');
-	const [isSearching, setIsSearching] = useState(false);
 	const [searchText, setSearchText] = useState('');
 	const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
 
@@ -28,11 +26,15 @@ export function App() {
 		fetch('http://localhost:3004/toDos')
 			.then((loadedData) => loadedData.json())
 			.then((loadedToDos) => {
-				setToDoList(loadedToDos);
 				setOriginalToDoList(loadedToDos);
+				setViewToDoList(loadedToDos);
 			})
 			.finally(() => setIsLoading(false));
 	}, [refreshToDosFlag]);
+
+	useEffect(() => {
+		updateViewToDoList();
+	}, [originalToDoList, searchText, isSortedAlphabetically]);
 
 	const requestAddToDoItem = () => {
 		fetch('http://localhost:3004/toDos', {
@@ -123,30 +125,38 @@ export function App() {
 		setHasInput(false);
 	};
 
-	const toggleIsSorted = () => {
-		setIsSortedAlphabetically((prev) => !prev);
-		sortTasksAlphabetically();
+	const updateViewToDoList = () => {
+		let updateToDoList = [...originalToDoList];
+		if (searchText.trim() !== '') {
+			updateToDoList = updateToDoList.filter((itemTask) =>
+				itemTask.title.toLowerCase().includes(searchText.trim().toLowerCase()),
+			);
+		}
+		if (isSortedAlphabetically) {
+			updateToDoList.sort((a, b) => a.title.localeCompare(b.title));
+		}
+		setViewToDoList(updateToDoList);
 	};
 
-	const sortTasksAlphabetically = () => {
-		if (!isSortedAlphabetically) {
-			const toDoListSortAlphabetically = [...toDoList].sort((a, b) =>
-				a.title.localeCompare(b.title),
-			);
-			setToDoList(toDoListSortAlphabetically);
-		} else {
-			setToDoList(originalToDoList);
-		}
+	const toggleIsSorted = () => {
+		setIsSortedAlphabetically((prev) => !prev);
 	};
+	console.log(searchText);
+	console.log(isSortedAlphabetically);
 
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>
 			<div className={styles.input__search__container}>
-				<Input variant="input__search" placeholder="Search..." />
-				<Button variant="btn__search">
-					<ImSearch color="white" size={'15'} />
-				</Button>
+				<Input
+					variant="input__search"
+					placeholder="Search..."
+					value={searchText}
+					onChange={({ target }) => {
+						setSearchText(target.value);
+					}}
+				/>
+
 				<Button
 					text={'Sort A → Z'}
 					onClick={toggleIsSorted}
@@ -155,7 +165,7 @@ export function App() {
 			</div>
 
 			<ToDoList
-				toDoList={toDoList}
+				toDoList={viewToDoList}
 				isLoading={isLoading}
 				openUpdateItemModal={openUpdateItemModal}
 				openDeleteItemModal={openDeleteItemModal}

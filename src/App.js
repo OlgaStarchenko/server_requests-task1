@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import { ToDoList } from './components/ToDoList';
 import { Button } from './components/Button';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Modal } from './components/Modal';
 import { Input } from './components/Input';
 
@@ -17,8 +17,12 @@ export function App() {
 	const [hasInput, setHasInput] = useState(false);
 	const [idTask, setIdTask] = useState('');
 	const [titleTask, setTitleTask] = useState('');
+	const [inputValue, setInputValue] = useState('');
+
 	const [searchText, setSearchText] = useState('');
 	const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
+
+	const timerRef = useRef(null);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -31,6 +35,15 @@ export function App() {
 			})
 			.finally(() => setIsLoading(false));
 	}, [refreshToDosFlag]);
+
+	const handleSearchChange = ({ target }) => {
+		let newInputValue = target.value;
+		setInputValue(newInputValue);
+		clearTimeout(timerRef.current);
+		timerRef.current = setTimeout(() => {
+			setSearchText(newInputValue);
+		}, 1500);
+	};
 
 	useEffect(() => {
 		let updateToDoList = [...originalToDoList];
@@ -137,9 +150,9 @@ export function App() {
 	const toggleIsSorted = () => {
 		setIsSortedAlphabetically((prev) => !prev);
 	};
-	console.log(searchText);
-	console.log(isSortedAlphabetically);
 
+	console.log(inputValue);
+	console.log(searchText);
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>
@@ -147,10 +160,8 @@ export function App() {
 				<Input
 					variant="input__search"
 					placeholder="Search..."
-					value={searchText}
-					onChange={({ target }) => {
-						setSearchText(target.value);
-					}}
+					value={inputValue}
+					onChange={handleSearchChange}
 				/>
 
 				<Button

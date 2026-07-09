@@ -4,37 +4,39 @@ import { Button } from './components/Button';
 import { useEffect, useRef, useState } from 'react';
 import { Modal } from './components/Modal';
 import { Input } from './components/Input';
+import { ref, onValue, push, set, remove } from 'firebase/database';
+import { db } from './firebase';
 
 export function App() {
 	const [originalToDoList, setOriginalToDoList] = useState([]);
 	const [viewToDoList, setViewToDoList] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [isAdding, setIsAdding] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [itemText, setItemText] = useState('');
-	const [refreshToDosFlag, setRefreshToDosFlag] = useState(false);
 	const [hasInput, setHasInput] = useState(false);
 	const [idTask, setIdTask] = useState('');
 	const [titleTask, setTitleTask] = useState('');
 	const [inputValue, setInputValue] = useState('');
-
 	const [searchText, setSearchText] = useState('');
 	const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
 
 	const timerRef = useRef(null);
 
 	useEffect(() => {
-		setIsLoading(true);
-
-		fetch('http://localhost:3004/toDos')
-			.then((loadedData) => loadedData.json())
-			.then((loadedToDos) => {
-				setOriginalToDoList(loadedToDos);
-				setViewToDoList(loadedToDos);
-			})
-			.finally(() => setIsLoading(false));
-	}, [refreshToDosFlag]);
+		const toDosDbRef = ref(db, 'toDoList');
+		return onValue(toDosDbRef, (snapshot) => {
+			const loadedToDos = snapshot.val() || {};
+			const toDoList = Object.entries(loadedToDos).map(([id, item]) => ({
+				id,
+				...item,
+			}));
+			setOriginalToDoList(toDoList);
+			setViewToDoList(toDoList);
+			setIsLoading(false);
+		});
+	}, []);
 
 	const handleSearchChange = ({ target }) => {
 		let newInputValue = target.value;
@@ -59,57 +61,33 @@ export function App() {
 	}, [originalToDoList, searchText, isSortedAlphabetically]);
 
 	const requestAddToDoItem = () => {
-		fetch('http://localhost:3004/toDos', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				title: itemText,
-			}),
-		})
-			.then((rawResponse) => rawResponse.json())
-			.then((newItem) => {
-				refreshToDos();
-			})
-			.finally(() => {
-				setIsAdding(false);
-				setItemText('');
-			});
+		const toDosDbRef = ref(db, 'toDoList');
+
+		push(toDosDbRef, {
+			title: itemText,
+		}).then(() => {
+			setIsAdding(false);
+			setItemText('');
+		});
 	};
 
 	const requestUpdateToDoItem = () => {
-		fetch(`http://localhost:3004/toDos/${idTask}`, {
-			method: 'PATCH',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				title: itemText,
-			}),
-		})
-			.then((rawResponse) => rawResponse.json())
-			.then((newItem) => {
-				refreshToDos();
-			})
-			.finally(() => {
-				setIsAdding(false);
-				setItemText('');
-				closeUpdateItemModal();
-			});
+		const taskRef = ref(db, `toDoList/${idTask}`);
+
+		set(taskRef, {
+			title: itemText,
+		}).then(() => {
+			setIsUpdating(false);
+			setItemText('');
+			closeUpdateItemModal();
+		});
 	};
 
-	const requestDeleteToDoItem = (id) => {
-		fetch(`http://localhost:3004/toDos/${idTask}`, {
-			method: 'DELETE',
-		})
-			.then((rawResponse) => {
-				rawResponse.json();
-			})
-			.then((deleteItem) => {
-				refreshToDos();
-			})
-			.finally(() => closeDeleteItemModal());
-	};
-
-	const refreshToDos = () => {
-		setRefreshToDosFlag(!refreshToDosFlag);
+	const requestDeleteToDoItem = () => {
+		const taskRef = ref(db, `toDoList/${idTask}`);
+		remove(taskRef).then(() => {
+			closeDeleteItemModal();
+		});
 	};
 
 	const openAddItemModal = () => {
@@ -151,8 +129,6 @@ export function App() {
 		setIsSortedAlphabetically((prev) => !prev);
 	};
 
-	console.log(inputValue);
-	console.log(searchText);
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>

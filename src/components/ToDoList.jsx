@@ -14,7 +14,7 @@ export function ToDoList({
 				{isLoading ? (
 					<div className={styles.loader}></div>
 				) : (
-					toDoList.map((item, id) => (
+					Object.entries(toDoList).map(([id, item]) => (
 						<ToDoItem
 							id={item.id}
 							key={item.id}

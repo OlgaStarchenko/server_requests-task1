@@ -25,11 +25,11 @@
 	border-radius: 10px;
 	margin: 15px;
 }
-.btn__add:disabled {
-	background-color: rgb(164, 160, 160);
-}
 .btn__add:hover {
 	background-color: rgb(124, 85, 23);
+}
+.btn__add:disabled {
+	background-color: rgb(164, 160, 160);
 }
 .btn__cancel {
 	color: white;

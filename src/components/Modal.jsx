@@ -28,7 +28,6 @@ export function Modal({
 
 	useEffect(() => {
 		const handleKeyDown = (event) => {
-			console.log(event.key);
 			if (event.key === 'Enter' && !disabledAcceptButton) {
 				acceptButtonOnClick();
 			} else if (event.key === 'Escape') {

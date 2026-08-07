@@ -4,6 +4,10 @@ import { Button } from './components/Button';
 import { useEffect, useRef, useState } from 'react';
 import { Modal } from './components/Modal';
 import { Input } from './components/Input';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { MainPage } from './pages/MainPage';
+import { TaskPage } from './pages/MainPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 export function App() {
 	const [originalToDoList, setOriginalToDoList] = useState([]);
@@ -223,6 +227,12 @@ export function App() {
 					questionText={`Do you really want to delete the task "${titleTask}"?`}
 				></Modal>
 			)}
+			<Routes>
+				<Route path="/" element={<MainPage />} />
+				<Route path="/task/:id" element={<TaskPage />} />
+				<Route path="/404" element={<Navigate to="/404" replace />} />
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
 		</div>
 	);
 }

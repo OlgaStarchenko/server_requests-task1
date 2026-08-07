@@ -151,8 +151,6 @@ export function App() {
 		setIsSortedAlphabetically((prev) => !prev);
 	};
 
-	console.log(inputValue);
-	console.log(searchText);
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>

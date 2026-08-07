@@ -23,5 +23,21 @@ export function MainPage() {
 	const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
 
 	const timerRef = useRef(null);
+
+	useEffect(() => {
+		console.log('MainPage useEffect запустился');
+
+		setIsLoading(true);
+
+		fetch('http://localhost:3004/toDos')
+			.then((loadedData) => loadedData.json())
+			.then((loadedToDos) => {
+				setOriginalToDoList(loadedToDos);
+				setViewToDoList(loadedToDos);
+				console.log('Данные с сервера', loadedToDos);
+			})
+			.finally(() => setIsLoading(false));
+	}, [refreshToDosFlag]);
+
 	return <div>MainPage</div>;
 }

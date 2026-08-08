@@ -118,3 +118,15 @@
 	border-radius: 5px;
 	margin: 5px;
 }
+.btn__back {
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: rgb(227, 201, 137);
+
+	width: 45px;
+	height: 20px;
+
+	border-radius: 5px;
+	margin: 5px;
+}

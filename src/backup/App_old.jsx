@@ -6,18 +6,6 @@ import { TaskPage } from './pages/TaskPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export function App() {
-	useEffect(() => {
-		setIsLoading(true);
-
-		fetch('http://localhost:3004/toDos')
-			.then((loadedData) => loadedData.json())
-			.then((loadedToDos) => {
-				setOriginalToDoList(loadedToDos);
-				setViewToDoList(loadedToDos);
-			})
-			.finally(() => setIsLoading(false));
-	}, [refreshToDosFlag]);
-
 	const handleSearchChange = ({ target }) => {
 		let newInputValue = target.value;
 		setInputValue(newInputValue);
@@ -58,42 +46,6 @@ export function App() {
 			});
 	};
 
-	const requestUpdateToDoItem = () => {
-		fetch(`http://localhost:3004/toDos/${idTask}`, {
-			method: 'PATCH',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				title: itemText,
-			}),
-		})
-			.then((rawResponse) => rawResponse.json())
-			.then((newItem) => {
-				refreshToDos();
-			})
-			.finally(() => {
-				setIsAdding(false);
-				setItemText('');
-				closeUpdateItemModal();
-			});
-	};
-
-	const requestDeleteToDoItem = (id) => {
-		fetch(`http://localhost:3004/toDos/${idTask}`, {
-			method: 'DELETE',
-		})
-			.then((rawResponse) => {
-				rawResponse.json();
-			})
-			.then((deleteItem) => {
-				refreshToDos();
-			})
-			.finally(() => closeDeleteItemModal());
-	};
-
-	const refreshToDos = () => {
-		setRefreshToDosFlag(!refreshToDosFlag);
-	};
-
 	const openAddItemModal = () => {
 		setIsAdding(true);
 		setHasInput(true);
@@ -102,30 +54,6 @@ export function App() {
 	const closeAddItemModal = () => {
 		setIsAdding(false);
 		setItemText('');
-		setHasInput(false);
-	};
-	const openUpdateItemModal = (id, title) => {
-		setIdTask(id);
-		setItemText(title);
-		setIsUpdating(true);
-		setHasInput(true);
-	};
-
-	const closeUpdateItemModal = () => {
-		setIsUpdating(false);
-		setItemText('');
-		setHasInput(false);
-	};
-
-	const openDeleteItemModal = (id, title) => {
-		setTitleTask(title);
-		setIsDeleting(true);
-		setHasInput(false);
-		setIdTask(id);
-	};
-
-	const closeDeleteItemModal = () => {
-		setIsDeleting(false);
 		setHasInput(false);
 	};
 
@@ -180,37 +108,6 @@ export function App() {
 					isUpdating={isUpdating}
 				/>
 			)}
-			{isUpdating && (
-				<Modal
-					acceptButtonText={'Edit'}
-					cancelButtonText={'Cancel'}
-					cancelButtonOnClick={closeUpdateItemModal}
-					acceptButtonOnClick={requestUpdateToDoItem}
-					itemText={itemText}
-					setItemText={setItemText}
-					hasInput={hasInput}
-					disabledAcceptButton={itemText.trim() === ''}
-					isAdding={isAdding}
-					isUpdating={isUpdating}
-				/>
-			)}
-			{isDeleting && (
-				<Modal
-					acceptButtonText={'Delete'}
-					cancelButtonText={'Cancel'}
-					cancelButtonOnClick={closeDeleteItemModal}
-					acceptButtonOnClick={requestDeleteToDoItem}
-					hasInput={hasInput}
-					titleTask={titleTask}
-					questionText={`Do you really want to delete the task "${titleTask}"?`}
-				></Modal>
-			)}
-			<Routes>
-				<Route path="/" element={<MainPage />} />
-				<Route path="/task/:id" element={<TaskPage />} />
-				<Route path="/404" element={<NotFoundPage />} />
-				<Route path="*" element={<Navigate to="/404" replace />} />
-			</Routes>
 		</div>
 	);
 }

@@ -1,3 +1,66 @@
+body {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+.container {
+	width: 400px;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	font-size: 17px;
+	color: rgb(124, 85, 23);
+
+	background-image: url('/public/fon.avif');
+	border: 1px solid rgb(225, 218, 195);
+}
+
+.title {
+	font-size: 30px;
+	font-weight: bold;
+	color: rgb(124, 85, 23);
+
+	margin-top: 25px;
+}
+.todo__item {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.item__text {
+	width: 350px;
+	margin: 50px 0;
+
+	font-size: 17px;
+	color: rgb(124, 85, 23);
+}
+
+.content {
+	flex: 1;
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.right {
+	display: flex;
+}
+.round {
+	width: 8px;
+	height: 8px;
+
+	background-color: rgb(227, 201, 137);
+	border-radius: 50%;
+
+	margin-top: 4px;
+	flex-shrink: 0;
+}
+
 .loader {
 	position: fixed;
 	top: 50%;

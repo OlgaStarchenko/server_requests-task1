@@ -88,24 +88,30 @@ export function TaskPage() {
 			{isLoading ? (
 				<div className={styles.loader}></div>
 			) : (
-				<div>
-					<p>{task.title}</p>
-					<Button
-						text={'Edit'}
-						variant="btn__edit"
-						onClick={openUpdateItemModal}
-					/>
-					<Button
-						text={'Delete'}
-						variant="btn__delete"
-						onClick={openDeleteItemModal}
-					/>
+				<div className={styles.container}>
+					<h1 className={styles.title}>Todo Item</h1>
+					<div className={styles.item__text}>
+						<p>{task.title}</p>
+					</div>
 
-					<Button
-						text={'Back'}
-						variant="btn__back"
-						onClick={() => navigate(-1)}
-					/>
+					<div className={styles.button__container}>
+						<Button
+							text={'Back'}
+							variant="btn__back"
+							onClick={() => navigate(-1)}
+						/>
+
+						<Button
+							text={'Edit'}
+							variant="btn__edit"
+							onClick={openUpdateItemModal}
+						/>
+						<Button
+							text={'Delete'}
+							variant="btn__delete"
+							onClick={openDeleteItemModal}
+						/>
+					</div>
 				</div>
 			)}
 

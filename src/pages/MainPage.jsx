@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './maimPage.module.css';
+import styles from './mainPage.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { ToDoList } from '../components/ToDoList';
 import { Button } from '../components/Button';
@@ -24,8 +24,6 @@ export function MainPage() {
 	};
 
 	useEffect(() => {
-		console.log('MainPage useEffect запустился');
-
 		setIsLoading(true);
 
 		fetch('http://localhost:3004/toDos')
@@ -33,10 +31,14 @@ export function MainPage() {
 			.then((loadedToDos) => {
 				setOriginalToDoList(loadedToDos);
 				setViewToDoList(loadedToDos);
-				console.log('Данные с сервера', loadedToDos);
 			})
 			.finally(() => setIsLoading(false));
 	}, [refreshToDosFlag]);
 
-	return <div>MainPage</div>;
+	return (
+		<div className={styles.container}>
+			<h1 className={styles.title}>Todo List</h1>
+			<ToDoList toDoList={viewToDoList} />
+		</div>
+	);
 }

@@ -1,5 +1,3 @@
-import styles from './App.module.css';
-
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainPage } from './pages/MainPage';
 import { TaskPage } from './pages/TaskPage';

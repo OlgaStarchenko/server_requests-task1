@@ -15,13 +15,7 @@ export function ToDoList({
 					<div className={styles.loader}></div>
 				) : (
 					toDoList.map((item, id) => (
-						<ToDoItem
-							id={item.id}
-							key={item.id}
-							title={item.title}
-							openUpdateItemModal={openUpdateItemModal}
-							openDeleteItemModal={openDeleteItemModal}
-						/>
+						<ToDoItem key={item.id} title={item.title} id={item.id} />
 					))
 				)}
 			</ul>

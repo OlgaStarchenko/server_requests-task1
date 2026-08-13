@@ -13,14 +13,19 @@
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 10px;
+	margin-bottom: 10px;
 
 	font-size: 17px;
 	color: rgb(124, 85, 23);
 }
-.line {
-	border: 1px solid rgb(227, 201, 137);
-	width: 400px;
-	margin: 6px 0;
+.task__link {
+	color: rgb(124, 85, 23);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.task__link:hover {
+	color: rgb(227, 201, 137);
 }
 .content {
 	flex: 1;
@@ -29,6 +34,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	width: 300px;
 }
 .right {
 	display: flex;

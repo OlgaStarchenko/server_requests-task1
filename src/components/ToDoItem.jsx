@@ -1,33 +1,18 @@
 import React from 'react';
 import styles from './toDoItem.module.css';
-import { Button } from './Button';
+import { Link } from 'react-router-dom';
 
-export function ToDoItem({ title, openUpdateItemModal, id, openDeleteItemModal }) {
+export function ToDoItem({ title, id }) {
 	return (
 		<li className={styles.todo__item}>
 			<div className={styles.round}></div>
 
 			<div className={styles.content}>
 				<div className={styles.header}>
-					<p>{title}</p>
-
-					<div className={styles.right}>
-						<Button
-							text="Edit"
-							variant="btn__edit"
-							onClick={() => openUpdateItemModal(id, title)}
-						/>
-						<Button
-							text="Delete"
-							variant="btn__delete"
-							onClick={() => {
-								openDeleteItemModal(id, title);
-							}}
-						/>
-					</div>
+					<Link to={`/task/${id}`} className={styles.task__link}>
+						{title}
+					</Link>
 				</div>
-
-				<hr className={styles.line} />
 			</div>
 		</li>
 	);

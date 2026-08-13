@@ -48,30 +48,30 @@
 }
 .btn__edit {
 	color: white;
-	font-size: 13px;
+	font-size: 20px;
 	font-weight: bold;
 	background-color: rgb(227, 201, 137);
 
-	width: 45px;
-	height: 20px;
+	width: 70px;
+	height: 30px;
 
 	border-radius: 5px;
-	margin: 5px;
+	margin: 10px;
 }
 .btn__edit:hover {
 	background-color: rgb(124, 85, 23);
 }
 .btn__delete {
 	color: white;
-	font-size: 13px;
+	font-size: 20px;
 	font-weight: bold;
 	background-color: rgb(227, 201, 137);
 
-	width: 45px;
-	height: 20px;
+	width: 70px;
+	height: 30px;
 
 	border-radius: 5px;
-	margin: 5px;
+	margin: 10px;
 }
 .btn__delete:hover {
 	background-color: rgb(124, 85, 23);
@@ -120,13 +120,16 @@
 }
 .btn__back {
 	color: white;
-	font-size: 13px;
+	font-size: 20px;
 	font-weight: bold;
 	background-color: rgb(227, 201, 137);
 
-	width: 45px;
-	height: 20px;
+	width: 70px;
+	height: 30px;
 
 	border-radius: 5px;
-	margin: 5px;
+	margin: 10px;
+}
+.btn__back:hover {
+	background-color: rgb(124, 85, 23);
 }

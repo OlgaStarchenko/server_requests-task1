@@ -1,13 +1,4 @@
 {
-  "toDos": [
-    {
-      "title": "купить k ksdjvh ksdjbf jijsbdjibsdjb ksjdbhfkjesdj bkjsbhdhbfkjehjifh",
-      "id": "SLA95wU3Jj8"
-    },
-    {
-      "title": "сходить на род. собрание ориром hjhvkjhvkjvb ,jhb jhbjhbjk",
-      "id": "a469WrxAuLE"
-    }
-  ],
+  "toDos": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

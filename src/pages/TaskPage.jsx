@@ -91,6 +91,7 @@ export function TaskPage() {
 				<div className={styles.container}>
 					<h1 className={styles.title}>Todo Item</h1>
 					<div className={styles.item__text}>
+						<div className={styles.round}></div>
 						<p>{task.title}</p>
 					</div>
 

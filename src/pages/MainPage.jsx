@@ -24,6 +24,19 @@ export function MainPage() {
 		setRefreshToDosFlag((prev) => !prev);
 	};
 
+	const handleSearchChange = ({ target }) => {
+		let newInputValue = target.value;
+		setInputValue(newInputValue);
+		clearTimeout(timerRef.current);
+		timerRef.current = setTimeout(() => {
+			setSearchText(newInputValue);
+		}, 1500);
+	};
+
+	const toggleIsSorted = () => {
+		setIsSortedAlphabetically((prev) => !prev);
+	};
+
 	useEffect(() => {
 		setIsLoading(true);
 
@@ -35,6 +48,24 @@ export function MainPage() {
 			})
 			.finally(() => setIsLoading(false));
 	}, [refreshToDosFlag]);
+
+	useEffect(() => {
+		let updateToDoList;
+
+		if (searchText.trim() === '') {
+			updateToDoList = [...originalToDoList];
+		} else {
+			updateToDoList = originalToDoList.filter((toDoItem) =>
+				toDoItem.title.toLowerCase().includes(searchText.toLowerCase()),
+			);
+		}
+
+		if (isSortedAlphabetically) {
+			updateToDoList.sort((a, b) => a.title.localeCompare(b.title));
+		}
+
+		setViewToDoList(updateToDoList);
+	}, [searchText, originalToDoList, isSortedAlphabetically]);
 
 	const requestAddToDoItem = () => {
 		fetch('http://localhost:3004/toDos', {
@@ -68,6 +99,20 @@ export function MainPage() {
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>Todo List</h1>
+
+			<Input
+				variant="input__search"
+				placeholder="Search..."
+				value={inputValue}
+				onChange={handleSearchChange}
+			/>
+
+			<Button
+				text={'Sort A → Z'}
+				onClick={toggleIsSorted}
+				variant={isSortedAlphabetically ? 'btn__sort__active' : 'btn__sort'}
+			/>
+
 			{isLoading ? (
 				<div className={styles.loader}></div>
 			) : (

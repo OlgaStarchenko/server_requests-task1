@@ -27,12 +27,19 @@ export function TaskPage() {
 		setIsLoading(true);
 
 		fetch(`http://localhost:3004/toDos/${id}`)
-			.then((loadingData) => loadingData.json())
+			.then((loadingData) => {
+				if (!loadingData.ok) {
+					navigate('/404');
+					return;
+				} else {
+					return loadingData.json();
+				}
+			})
 			.then((loadedTask) => {
 				setTask(loadedTask);
 			})
 			.finally(() => setIsLoading(false));
-	}, [id, refreshTaskFlag]);
+	}, [id, refreshTaskFlag, navigate]);
 
 	const requestUpdateToDoItem = () => {
 		fetch(`http://localhost:3004/toDos/${id}`, {
@@ -88,32 +95,34 @@ export function TaskPage() {
 			{isLoading ? (
 				<div className={styles.loader}></div>
 			) : (
-				<div className={styles.container}>
-					<h1 className={styles.title}>Todo Item</h1>
-					<div className={styles.item__text}>
-						<div className={styles.round}></div>
-						<p>{task.title}</p>
-					</div>
+				task && (
+					<div className={styles.container}>
+						<h1 className={styles.title}>Todo Item</h1>
+						<div className={styles.item__text}>
+							<div className={styles.round}></div>
+							<p>{task.title}</p>
+						</div>
 
-					<div className={styles.button__container}>
-						<Button
-							text={'Back'}
-							variant="btn__back"
-							onClick={() => navigate(-1)}
-						/>
+						<div className={styles.button__container}>
+							<Button
+								text={'Back'}
+								variant="btn__back"
+								onClick={() => navigate(-1)}
+							/>
 
-						<Button
-							text={'Edit'}
-							variant="btn__edit"
-							onClick={openUpdateItemModal}
-						/>
-						<Button
-							text={'Delete'}
-							variant="btn__delete"
-							onClick={openDeleteItemModal}
-						/>
+							<Button
+								text={'Edit'}
+								variant="btn__edit"
+								onClick={openUpdateItemModal}
+							/>
+							<Button
+								text={'Delete'}
+								variant="btn__delete"
+								onClick={openDeleteItemModal}
+							/>
+						</div>
 					</div>
-				</div>
+				)
 			)}
 
 			{isUpdating && (
@@ -136,7 +145,7 @@ export function TaskPage() {
 					acceptButtonOnClick={requestDeleteToDoItem}
 					cancelButtonText={'Cancel'}
 					cancelButtonOnClick={closeDeleteItemModal}
-					questionText={'Вы действительно хотите удалить эту задачу?'}
+					questionText={'Do you really want to delete this task?'}
 					isDeleting
 				/>
 			)}

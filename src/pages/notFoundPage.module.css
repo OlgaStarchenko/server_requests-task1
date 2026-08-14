@@ -1,0 +1,34 @@
+body {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+.container {
+	width: 400px;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	font-size: 17px;
+	color: rgb(124, 85, 23);
+
+	background-image: url('/public/fon.avif');
+	border: 1px solid rgb(225, 218, 195);
+}
+.title {
+	font-size: 30px;
+	font-weight: bold;
+	color: rgb(124, 85, 23);
+
+	margin-top: 25px;
+	margin-bottom: 50px;
+}
+.item__text {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 40px;
+	font-size: 20px;
+	color: rgb(124, 85, 23);
+}

@@ -1,8 +1,10 @@
-import React from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../context';
 import styles from './toDoItem.module.css';
 import { Button } from './Button';
 
-export function ToDoItem({ title, openUpdateItemModal, id, openDeleteItemModal }) {
+export function ToDoItem({ title, id }) {
+	const { openUpdateItemModal, openDeleteItemModal } = useContext(AppContext);
 	return (
 		<li className={styles.todo__item}>
 			<div className={styles.round}></div>

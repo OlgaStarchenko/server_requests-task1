@@ -4,6 +4,7 @@ import { Button } from './components/Button';
 import { useEffect, useRef, useState } from 'react';
 import { Modal } from './components/Modal';
 import { Input } from './components/Input';
+import { AppContext } from './context';
 
 export function App() {
 	const [originalToDoList, setOriginalToDoList] = useState([]);
@@ -151,8 +152,6 @@ export function App() {
 		setIsSortedAlphabetically((prev) => !prev);
 	};
 
-	console.log(inputValue);
-	console.log(searchText);
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>To Do List</h1>
@@ -171,12 +170,16 @@ export function App() {
 				/>
 			</div>
 
-			<ToDoList
-				toDoList={viewToDoList}
-				isLoading={isLoading}
-				openUpdateItemModal={openUpdateItemModal}
-				openDeleteItemModal={openDeleteItemModal}
-			/>
+			<AppContext.Provider
+				value={{
+					viewToDoList,
+					isLoading,
+					openUpdateItemModal,
+					openDeleteItemModal,
+				}}
+			>
+				<ToDoList />
+			</AppContext.Provider>
 
 			<div className={styles.btn__add__container}>
 				<Button
